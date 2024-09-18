@@ -25,6 +25,18 @@ export default class Megoldás {
         return voltEgyesTipp;
     }
 
+    get jatekLegnagyobbtippje(): number {
+        let maxTipp: number = this.#játékosok[0].JatekosLegnagyobbTippje;
+        for (const jatekos of this.#játékosok.slice(1)) {
+            maxTipp = jatekos.JatekosLegnagyobbTippje;
+        }
+        return maxTipp;
+    }
+
+    get jatekosLegnagyobbtippje2(): number {
+        return Math.max(...this.#játékosok.map(e => e.JatekosLegnagyobbTippje));
+    }
+
     constructor(forrás: string) {
         fs.readFileSync(forrás)
             .toString()

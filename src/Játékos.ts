@@ -16,6 +16,7 @@ export default class Játékos {
     }
 
     get JatekosLegnagyobbTippje(): number {
+        // klasszikus prog tétel
         let maxTipp: number = this.#tippek[0];
         for (const tipp of this.#tippek.slice(1)) {
             //C# skipp(1)

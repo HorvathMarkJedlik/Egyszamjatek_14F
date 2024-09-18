@@ -75,7 +75,7 @@ export default class Megoldás {
         if (this.nyertesTipp(fordulo) === -1) {
             return "Nem volt egyedi tipp a megadott fordulóban";
         } else {
-            return `A nyertes tipp a megadott fordulóban: ${this.nyertesTipp(fordulo)}`;
+            return `A nyertes tipp a megadott fordulóban: ${this.nyertesTipp(fordulo)}.`;
         }
     }
 }

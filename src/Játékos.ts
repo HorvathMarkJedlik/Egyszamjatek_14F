@@ -15,6 +15,23 @@ export default class Játékos {
         return this.#tippek.length;
     }
 
+    get JatekosLegnagyobbTippje(): number {
+        let maxTipp: number = this.#tippek[0];
+        for (const tipp of this.#tippek.slice(1)) {
+            //C# skipp(1)
+            if (tipp > maxTipp) {
+                maxTipp = tipp;
+            }
+        }
+        return maxTipp;
+    }
+
+    get JatekosLegnagyobbTippje2(): number {
+        return Math.max(...this.#tippek);
+        // Math.max(6,7,3,4,5) -> 7
+        // Spread opetártor ... -> szétszedi a tömb elemeit.
+    }
+
     // Konstruktor azonosítója: constructor
     constructor(sor: string) {
         const m: string[] = sor.split(" ");

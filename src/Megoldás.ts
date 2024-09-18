@@ -49,4 +49,33 @@ export default class Megoldás {
                 }
             });
     }
+
+    nyertesTipp(fordulo: number): number {
+        const tippStat: number[] = new Array(100).fill(0);
+        for (const játékos of this.#játékosok) {
+            tippStat[játékos.fordulóTippje(fordulo)]++;
+        }
+        for (let i = 1; i < tippStat.length; i++) {
+            if (tippStat[i] === 1) {
+                return i;
+            }
+        }
+        return -1; // -1 jelzi, hogy nincs nyertes tipp
+    }
+
+    nyertesTipp2(fordulo: number): number {
+        const tippStat: number[] = new Array(100).fill(0);
+        for (const jatekos of this.#játékosok) {
+            tippStat[jatekos.fordulóTippje(fordulo)]++;
+        }
+        return tippStat.indexOf(1);
+    }
+
+    nyertesTippSzoveg(fordulo: number): string {
+        if (this.nyertesTipp(fordulo) === -1) {
+            return "Nem volt egyedi tipp a megadott fordulóban";
+        } else {
+            return `A nyertes tipp a megadott fordulóban: ${this.nyertesTipp(fordulo)}`;
+        }
+    }
 }

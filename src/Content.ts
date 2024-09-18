@@ -1,7 +1,8 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import Megoldás from "./Megoldás";
-// import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
+import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
+// import { parse } from "path";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -21,16 +22,27 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write("<title>Jedlik Ts Template</title>");
     res.write("</head>");
     res.write("<body><form><pre>");
-    // const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
+    const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
 
     // Kezd a kódolást innen -->
     const mo: Megoldás = new Megoldás("egyszamjatek.txt");
 
     res.write(`3. feladat: Játékosok száma: ${mo.jatékosoksSzáma}\n`);
+
     res.write(`4. feladat: Fordulók száma: ${mo.játékFordulóinakSzáma}\n`);
+
     res.write(`5. feladat: Az első fordulóban ${mo.voltEgyesTippElsőFordulóban ? "" : "nem"} volt 1-es tipp\n`);
+
     res.write(`6. feladat: Legnagyobb tipp a fordulók során: ${mo.jatekLegnagyobbtippje}\n`);
-    res.write(`6. feladat: Legnagyobb tipp a fordulók során: ${mo.jatekosLegnagyobbtippje2}\n`);
+
+    let inputFordulo: number = parseInt(params.get("fordulo") as string);
+    if (isNaN(inputFordulo) || inputFordulo < 1 || inputFordulo > mo.játékFordulóinakSzáma) {
+        inputFordulo = 1;
+    }
+
+    res.write(`7.feladat: Kérem a forduló sorszámát [1-${mo.játékFordulóinakSzáma}]: <input type='text' name='fordulo' value=${inputFordulo} style'max-width:100px; onChange='this.form.submit();'>\n`);
+
+    res.write(`8.feladat: ${mo.nyertesTippSzoveg(inputFordulo)}\n`);
 
     // <---- Fejezd be a kódolást
 

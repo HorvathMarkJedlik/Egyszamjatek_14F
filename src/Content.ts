@@ -28,7 +28,9 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     res.write(`3. feladat: Játékosok száma: ${mo.jatékosoksSzáma}\n`);
     res.write(`4. feladat: Fordulók száma: ${mo.játékFordulóinakSzáma}\n`);
-    res.write(`5. feladat: Az első fordulóban ${mo.voltEgyesTippElsőFordulóban ? "" : "nem"} volt 1-es tipp`);
+    res.write(`5. feladat: Az első fordulóban ${mo.voltEgyesTippElsőFordulóban ? "" : "nem"} volt 1-es tipp\n`);
+    res.write(`6. feladat: Legnagyobb tipp a fordulók során: ${mo.jatekLegnagyobbtippje}\n`);
+    res.write(`6. feladat: Legnagyobb tipp a fordulók során: ${mo.jatekosLegnagyobbtippje2}\n`);
 
     // <---- Fejezd be a kódolást
 

@@ -44,6 +44,8 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
 
     res.write(`8.feladat: ${mo.nyertesTippSzoveg(inputFordulo)}\n`);
 
+    res.write(`9. feladat: A megadott forduló nyertese: ${mo.nyertesJatekosSzoveg(inputFordulo)}`);
+
     // <---- Fejezd be a kódolást
 
     res.write("</pre></form></body></html>");

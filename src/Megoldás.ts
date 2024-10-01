@@ -50,7 +50,7 @@ export default class Megoldás {
             });
     }
 
-    nyertesTipp(fordulo: number): number {
+    #nyertesTipp(fordulo: number): number {
         const tippStat: number[] = new Array(100).fill(0);
         for (const játékos of this.#játékosok) {
             tippStat[játékos.fordulóTippje(fordulo)]++;
@@ -63,7 +63,7 @@ export default class Megoldás {
         return -1; // -1 jelzi, hogy nincs nyertes tipp
     }
 
-    nyertesTipp2(fordulo: number): number {
+    #nyertesTipp2(fordulo: number): number {
         const tippStat: number[] = new Array(100).fill(0);
         for (const jatekos of this.#játékosok) {
             tippStat[jatekos.fordulóTippje(fordulo)]++;
@@ -72,10 +72,34 @@ export default class Megoldás {
     }
 
     nyertesTippSzoveg(fordulo: number): string {
-        if (this.nyertesTipp(fordulo) === -1) {
+        if (this.#nyertesTipp(fordulo) === -1) {
             return "Nem volt egyedi tipp a megadott fordulóban";
         } else {
-            return `A nyertes tipp a megadott fordulóban: ${this.nyertesTipp(fordulo)}.`;
+            return `A nyertes tipp a megadott fordulóban: ${this.#nyertesTipp(fordulo)}.`;
         }
+    }
+
+    nyertesJatekosSzoveg(fordulo: number): string {
+        const nyertesTipp: number = this.#nyertesTipp(fordulo);
+        if (nyertesTipp === -1) {
+            return "nem volt nyertes a megadott fordulóban";
+        } else {
+            let nyertesJatekos: string = "";
+            for (const j of this.#játékosok) {
+                if (j.fordulóTippje(fordulo) === nyertesTipp) {
+                    nyertesJatekos = j.nev;
+                    break;
+                }
+            }
+            return `A megadott forduló nyertese: ${nyertesJatekos}`;
+        }
+    }
+
+    AllomanyOsszeallit(fordulo: number): string {
+        const ki: string[] = [];
+        ki.push(`Forduló sorszáma: ${fordulo}.`);
+        ki.push(`Nyertes tipp: ${this.#nyertesTipp(fordulo)}`);
+        ki.push(`Nyertes játékos: ${this.nyertesJatekosSzoveg(fordulo)}`);
+        return ki.join("\r\n"); // Windows sorvég vezérlő karakterei
     }
 }

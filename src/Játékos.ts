@@ -10,6 +10,10 @@ export default class Játékos {
     // Láthatósági szintek: private, protected, public
     // Alapértelmezett láthatósági szint a public
 
+    get nev(): string {
+        return this.#név;
+    }
+
     //TS jellemzőjét a get és a set foglalt szavak vezetik be
     get fordulókSzáma(): number {
         return this.#tippek.length;

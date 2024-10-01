@@ -95,11 +95,28 @@ export default class Megoldás {
         }
     }
 
-    AllomanyOsszeallit(fordulo: number): string {
+    #AllomanyOsszeallit(fordulo: number): string {
         const ki: string[] = [];
         ki.push(`Forduló sorszáma: ${fordulo}.`);
         ki.push(`Nyertes tipp: ${this.#nyertesTipp(fordulo)}`);
         ki.push(`Nyertes játékos: ${this.nyertesJatekosSzoveg(fordulo)}`);
         return ki.join("\r\n"); // Windows sorvég vezérlő karakterei
+    }
+
+    allomanyIras(allomanyNeve: string, fordulo: number): void {
+        if (this.#nyertesTipp(fordulo) === -1) {
+            try {
+                fs.unlinkSync(allomanyNeve);
+            } catch (error) {
+                console.log(`Hiba: ${(error as Error).message}`);
+            }
+        } else {
+            try {
+                // nyertex.txt állomány írása
+                fs.writeFileSync(allomanyNeve, this.#AllomanyOsszeallit(fordulo));
+            } catch (error) {
+                console.log(`Hiba: ${(error as Error).message}`);
+            }
+        }
     }
 }
